@@ -3,7 +3,7 @@ const app = express();
 // const xml = require("xml");
 const jxon = require("jxon");
 
-app.get("/dialplan", (req, res) => {
+app.post("/dialplan", (req, res) => {
   res.set("Content-Type", "text/xml");
 
   const action = {

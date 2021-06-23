@@ -3,27 +3,27 @@ const app = express();
 // const xml = require("xml");
 const jxon = require("jxon");
 
-app.get("/", (req, res) => {
+app.get("/dialplan", (req, res) => {
   res.set("Content-Type", "text/xml");
 
   const action = {
     $application: "bridge",
-    $data: "iax/guest@conference.freeswitch.org/888",
+    $data: "user/1101@editorapaulus.cloudcom.com.br",
   };
 
   const condition = {
     $field: "destination_number",
-    $expression: "^83789$",
+    $expression: "^(administrator)$",
     action,
   };
 
   const extension = {
-    $name: "test9",
+    $name: "ramal-administrator",
     condition,
   };
 
   const context = {
-    $name: "default",
+    $name: "editorapaulus",
     extension,
   };
 

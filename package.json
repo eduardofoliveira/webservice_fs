@@ -1,0 +1,16 @@
+{
+  "name": "webservice_freeswitch",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "jxon": "^2.0.0-beta.5",
+    "nodemon": "^2.0.7",
+    "xml": "^1.0.1",
+    "xml-js": "^1.6.11"
+  }
+}

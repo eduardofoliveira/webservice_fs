@@ -13,7 +13,7 @@ app.post("/dialplan", (req, res) => {
 
   const condition = {
     $field: "destination_number",
-    $expression: "^(administrator)$",
+    $expression: "^(.*)$",
     action,
   };
 
@@ -23,7 +23,7 @@ app.post("/dialplan", (req, res) => {
   };
 
   const context = {
-    $name: "editorapaulus",
+    $name: "public",
     extension,
   };
 

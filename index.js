@@ -42,7 +42,7 @@ app.get("/dialplan", (req, res) => {
     document,
   });
 
-  res.send(xml);
+  res.send(`<?xml version="1.0" encoding="UTF-8"?>${xml}`);
 });
 
 app.listen(80, () => {

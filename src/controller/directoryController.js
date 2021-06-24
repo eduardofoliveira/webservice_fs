@@ -1,12 +1,30 @@
+const { registerXml, notFound } = require("../util/xmlHelper");
+
+const DirectoryRepository = require("../repository/directoryRepository");
+
 module.exports = {
   async index(req, res) {
-    console.log({
-      body: req.body,
-      params: req.params,
-      query: req.query,
-      headers: req.headers,
+    const { user, domain, section } = req.body;
+    let xml = null;
+
+    const directoryRepository = new DirectoryRepository();
+    const user = await directoryRepository.getAuth({
+      user,
+      domain,
     });
 
-    res.send("...Directory");
+    console.log(user);
+
+    if (section === "directory") {
+      xml = registerXml({
+        dominio: domain,
+        username: user,
+        hash: "",
+      });
+    } else {
+      xml = notFound();
+    }
+
+    res.send(xml);
   },
 };

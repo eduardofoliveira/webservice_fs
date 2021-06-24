@@ -1,10 +1,10 @@
 module.exports = {
   async index(req, res) {
     console.log({
-      body: res.body,
-      params: res.params,
-      query: res.query,
-      headers: res.headers,
+      body: req.body,
+      params: req.params,
+      query: req.query,
+      headers: req.headers,
     });
 
     res.send("...Dialplan");

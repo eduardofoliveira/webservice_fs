@@ -8,12 +8,12 @@ module.exports = {
     let xml = null;
 
     const directoryRepository = new DirectoryRepository();
-    const user = await directoryRepository.getAuth({
+    const users = await directoryRepository.getAuth({
       user,
       domain,
     });
 
-    console.log(user);
+    console.log(users);
 
     if (section === "directory") {
       xml = registerXml({

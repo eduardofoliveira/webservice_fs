@@ -13,13 +13,11 @@ module.exports = {
       domain,
     });
 
-    console.log(users);
-
-    if (section === "directory") {
+    if (section === "directory" && users.length) {
       xml = registerXml({
         dominio: domain,
         username: user,
-        hash: "",
+        hash: users[0].VCH_PASSWORD,
       });
     } else {
       xml = notFound();

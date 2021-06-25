@@ -41,7 +41,11 @@ module.exports = {
     //
     // Chamadas externas
     //
-    if (section === "dialplan" && Number.isInteger(variable_sip_to_user)) {
+    if (
+      section === "dialplan" &&
+      variable_sip_to_user >= 1000 &&
+      variable_sip_to_user <= 9999
+    ) {
       const xmlText =
         `
         <document type="freeswitch/xml">

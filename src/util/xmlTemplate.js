@@ -72,15 +72,15 @@ const loadProfileTemplate = () => {
 
         let profileXml = jxon.stringToJs(profileTemplate);
 
-        profileXml.profile.gateways = [
-          await loadGatewayTemplate({
-            gatewayName: "Eduardo-cloudcom",
-            password: "123456",
-            realm: "cloud.cloudcom.com.br",
-            username: "Eduardo",
-            proxy: "cloud.cloudcom.com.br:6000",
-          }),
-        ];
+        // profileXml.profile.gateways = [
+        //   await loadGatewayTemplate({
+        //     gatewayName: "Eduardo-cloudcom",
+        //     password: "123456",
+        //     realm: "cloud.cloudcom.com.br",
+        //     username: "Eduardo",
+        //     proxy: "cloud.cloudcom.com.br:6000",
+        //   }),
+        // ];
 
         xml = profileXml;
 

@@ -7,6 +7,7 @@ module.exports = {
       variable_user_name,
       variable_domain_name,
       variable_sip_to_user,
+      variable_sip_from_user,
       variable_sip_from_host,
     } = req.body;
     const callerContext = req.body["Caller-Context"];
@@ -85,6 +86,11 @@ module.exports = {
             <context name="${callerContext}">
               <extension name="${variable_user_name}-${variable_sip_to_user}">
                 <condition field="destination_number" expression="^(${variable_sip_to_user})$">
+                  ${
+                    variable_sip_from_user === "Marlon"
+                      ? '<action application="set" data="effective_caller_id_number=1106"/> <action application="set" data="effective_caller_id_name=Ramal do Marlon"/>'
+                      : ""
+                  }
                   <action application="bridge" data="user/${variable_sip_to_user}@${callerContext}"/>
                 </condition>
               </extension>

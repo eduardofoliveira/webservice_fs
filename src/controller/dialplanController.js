@@ -41,7 +41,7 @@ module.exports = {
     //
     // Chamadas externas
     //
-    if (section === "dialplan" && isInteger(variable_sip_to_user)) {
+    if (section === "dialplan" && Number.isInteger(variable_sip_to_user)) {
       const xmlText =
         `
         <document type="freeswitch/xml">

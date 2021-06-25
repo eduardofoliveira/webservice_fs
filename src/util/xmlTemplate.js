@@ -72,7 +72,7 @@ const loadProfileTemplate = () => {
 
         let { gateway } = await loadGatewayTemplate({
           gatewayName: "Eduardo-cloud.cloudcom.com.br",
-          password: "123456",
+          password: "C8loEduardo!",
           realm: "cloud.cloudcom.com.br",
           username: "Eduardo",
           proxy: "cloud.cloudcom.com.br:6000",

@@ -1,5 +1,13 @@
+const { loadProfileTemplate } = require("../util/xmlTemplate");
+
 module.exports = {
   async index(req, res) {
+    const { section, profile } = req.body;
+
+    if (section === "configuration" && profile === "internal") {
+      return res.send(await loadProfileTemplate());
+    }
+
     console.log({
       body: req.body,
       params: req.params,
@@ -7,6 +15,6 @@ module.exports = {
       headers: req.headers,
     });
 
-    res.send("...Configuration");
+    return res.send("...Configuration");
   },
 };

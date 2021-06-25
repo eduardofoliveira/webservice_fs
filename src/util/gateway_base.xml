@@ -1,0 +1,16 @@
+<gateway name="1101-editorapaulus">
+  <param name="username" value="administrator"/>
+  <param name="realm" value="editorapaulus.cloudcom.com.br"/>
+  <param name="from-user" value="administrator"/>
+  <param name="from-domain" value="editorapaulus.cloudcom.com.br"/>
+  <param name="extension" value="administrator"/>
+  <param name="password" value="E0ditorapaulu@"/>
+  <param name="proxy" value="editorapaulus.cloudcom.com.br:6000"/>
+  <param name="register-proxy" value="editorapaulus.cloudcom.com.br:6000"/>
+  <param name="expire-seconds" value="60"/>
+  <param name="register" value="false"/>
+  <param name="register-transport" value="udp"/>
+  <param name="retry-seconds" value="15"/>
+  <param name="caller-id-in-from" value="false"/>
+  <param name="extension-in-contact" value="true"/>
+</gateway>

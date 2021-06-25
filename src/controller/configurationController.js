@@ -14,7 +14,9 @@ module.exports = {
         headers: req.headers,
       });
 
-      return res.send(await loadProfileTemplate());
+      const xml = await loadProfileTemplate();
+      res.set("Content-Type", "text/xml");
+      return res.send(xml);
     }
 
     return res.send("...Configuration");

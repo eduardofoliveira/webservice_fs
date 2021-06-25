@@ -72,15 +72,19 @@ const loadProfileTemplate = () => {
 
         let profileXml = jxon.stringToJs(profileTemplate);
 
-        // profileXml.profile.gateways = [
-        //   await loadGatewayTemplate({
-        //     gatewayName: "Eduardo-cloudcom",
-        //     password: "123456",
-        //     realm: "cloud.cloudcom.com.br",
-        //     username: "Eduardo",
-        //     proxy: "cloud.cloudcom.com.br:6000",
-        //   }),
-        // ];
+        let { gateway } = await loadGatewayTemplate({
+          gatewayName: "Eduardo-cloudcom",
+          password: "123456",
+          realm: "cloud.cloudcom.com.br",
+          username: "Eduardo",
+          proxy: "cloud.cloudcom.com.br:6000",
+        });
+
+        const include = {
+          gateway,
+        };
+
+        profileXml.profile.gateways = include;
 
         xml = profileXml;
 
@@ -93,9 +97,6 @@ const loadProfileTemplate = () => {
           $type: "freeswitch/xml",
           section,
         };
-
-        // console.log(jxon.jsToString({ document }));
-        // process.exit(0);
 
         resolve(jxon.jsToString({ document }));
       });

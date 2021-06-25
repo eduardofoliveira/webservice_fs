@@ -23,6 +23,7 @@ module.exports = {
       xml = notFound();
     }
 
+    res.set("Content-Type", "text/xml");
     res.send(xml);
   },
 };

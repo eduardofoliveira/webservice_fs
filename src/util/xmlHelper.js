@@ -47,9 +47,19 @@ const registerXml = ({ username, dominio, password, hash }) => {
     param,
   };
 
+  const variable = {
+    $name: "register-gateway",
+    $value: `${username}-${dominio}`,
+  };
+
+  const variables = {
+    variable,
+  };
+
   const domain = {
     $name: dominio,
     params,
+    variables,
     groups,
   };
 

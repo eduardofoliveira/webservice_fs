@@ -71,7 +71,7 @@ const loadProfileTemplate = () => {
         let profileXml = jxon.stringToJs(profileTemplate);
 
         let { gateway } = await loadGatewayTemplate({
-          gatewayName: "Eduardo-cloudcom",
+          gatewayName: "Eduardo-cloud.cloudcom.com.br",
           password: "123456",
           realm: "cloud.cloudcom.com.br",
           username: "Eduardo",

@@ -1,6 +1,5 @@
 const jxon = require("jxon");
 const fs = require("fs");
-const path = require("path");
 
 const loadGatewayTemplate = ({
   gatewayName,
@@ -13,9 +12,7 @@ const loadGatewayTemplate = ({
     try {
       let xml = null;
 
-      const gateway = fs.createReadStream(
-        path.resolve("./src/util/gateway_base.xml")
-      );
+      const gateway = fs.createReadStream("./src/util/gateway_base.xml");
       gateway.on("data", (data) => {
         let gatewayTemplate = data.toString();
 
@@ -69,9 +66,7 @@ const loadProfileTemplate = () => {
     try {
       let xml = null;
 
-      const profile = fs.createReadStream(
-        path.resolve("./src/util/profile_base.xml")
-      );
+      const profile = fs.createReadStream("./src/util/profile_base.xml");
       profile.on("data", async (data) => {
         let profileTemplate = data.toString();
 

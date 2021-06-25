@@ -88,9 +88,15 @@ const loadProfileTemplate = () => {
 
         xml = profileXml;
 
+        const configuration = {
+          $name: "configuration",
+          $description: "description",
+          profiles: xml,
+        };
+
         const section = {
           $name: "configuration",
-          profiles: xml,
+          configuration,
         };
 
         const document = {

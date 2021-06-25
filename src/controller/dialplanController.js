@@ -23,7 +23,7 @@ module.exports = {
           <section name="dialplan" description="RE Dial Plan For FreeSwitch">
             <context name="${variable_domain_name}">
               <extension name="${variable_user_name}-${variable_sip_to_user}">
-                <condition field="destination_number" expression="^${variable_sip_to_user}$">
+                <condition field="destination_number" expression="^(${variable_sip_to_user})$">
                   <action application="bridge" data="{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/` +
         "${register-gateway}" +
         `/$1"/>

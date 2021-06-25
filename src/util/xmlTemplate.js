@@ -64,8 +64,6 @@ const loadGatewayTemplate = ({
 const loadProfileTemplate = () => {
   return new Promise((resolve, reject) => {
     try {
-      let xml = null;
-
       const profile = fs.createReadStream("./src/util/profile_base.xml");
       profile.on("data", async (data) => {
         let profileTemplate = data.toString();
@@ -80,31 +78,15 @@ const loadProfileTemplate = () => {
           proxy: "cloud.cloudcom.com.br:6000",
         });
 
-        const include = {
+        const gateways = {
           gateway,
         };
 
-        profileXml.profile.gateways = include;
+        profileXml.document.section.configuration.profiles.profile.gateways =
+          gateways;
+        console.log(profileXml.document.section.configuration.profiles.profile);
 
-        xml = profileXml;
-
-        const configuration = {
-          $name: "configuration",
-          $description: "description",
-          profiles: xml,
-        };
-
-        const section = {
-          $name: "configuration",
-          configuration,
-        };
-
-        const document = {
-          $type: "freeswitch/xml",
-          section,
-        };
-
-        resolve(jxon.jsToString({ document }));
+        resolve(jxon.jsToString(profileXml));
       });
       // profile.on("end", () => {
       //   console.log(xml);
@@ -121,8 +103,8 @@ module.exports = {
   loadProfileTemplate,
 };
 
-let execute = async () => {
-  console.log(await loadProfileTemplate());
-};
+// let execute = async () => {
+//   console.log(await loadProfileTemplate());
+// };
 
-execute();
+// execute();

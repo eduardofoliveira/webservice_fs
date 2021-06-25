@@ -86,7 +86,7 @@ const loadProfileTemplate = () => {
 
         const section = {
           $name: "configuration",
-          profile: xml,
+          profiles: xml,
         };
 
         const document = {
@@ -94,10 +94,10 @@ const loadProfileTemplate = () => {
           section,
         };
 
-        // console.log(document);
+        // console.log(jxon.jsToString({ document }));
         // process.exit(0);
 
-        resolve(jxon.jsToString(document));
+        resolve(jxon.jsToString({ document }));
       });
       // profile.on("end", () => {
       //   console.log(xml);

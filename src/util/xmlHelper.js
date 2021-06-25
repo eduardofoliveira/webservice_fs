@@ -47,10 +47,26 @@ const registerXml = ({ username, dominio, password, hash }) => {
     param,
   };
 
-  const variable = {
+  const variable = [];
+
+  const variable1 = {
     $name: "register-gateway",
     $value: `${username}-${dominio}`,
   };
+
+  const variable2 = {
+    $name: "user_context",
+    $value: dominio,
+  };
+
+  const variable3 = {
+    $name: "accountcode",
+    $value: dominio,
+  };
+
+  variable.push(variable1);
+  variable.push(variable2);
+  variable.push(variable3);
 
   const variables = {
     variable,

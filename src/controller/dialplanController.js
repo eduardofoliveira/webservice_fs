@@ -1,5 +1,12 @@
 module.exports = {
   async index(req, res) {
+    const {
+      section,
+      variable_user_name,
+      variable_domain_name,
+      variable_sip_to_user,
+    } = req.body;
+
     console.log({
       body: req.body,
       params: req.params,
@@ -7,6 +14,30 @@ module.exports = {
       headers: req.headers,
     });
 
-    res.send("...Dialplan");
+    if (section === "dialplan") {
+      const xmlText =
+        `
+        <document type="freeswitch/xml">
+          <section name="dialplan" description="RE Dial Plan For FreeSwitch">
+            <context name="${variable_domain_name}">
+              <extension name="${variable_user_name}-${variable_sip_to_user}">
+                <condition field="destination_number" expression="^${variable_sip_to_user}$">
+                  <action application="bridge" data="{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/` +
+        "${register-gateway}" +
+        `/$1"/>
+                </condition>
+              </extension>
+            </context>
+          </section>
+        </document>
+        `;
+
+      let xml = jxon.stringToJs(xmlText);
+      res.set("Content-Type", "text/xml");
+      return res.send(xml);
+    }
+
+    res.set("Content-Type", "text/xml");
+    return res.send("...Dialplan");
   },
 };

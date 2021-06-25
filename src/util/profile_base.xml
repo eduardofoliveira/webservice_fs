@@ -1,7 +1,7 @@
 <profile name="internal">
-  <aliases>
+  <!-- <aliases> -->
     <!-- <alias name="default"/> -->
-  </aliases>
+  <!-- </aliases> -->
   <!-- Outbound Registrations -->
   <gateways>
     <X-PRE-PROCESS cmd="include" data="internal/*.xml"/>

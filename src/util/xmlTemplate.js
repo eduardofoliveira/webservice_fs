@@ -83,7 +83,21 @@ const loadProfileTemplate = () => {
         ];
 
         xml = profileXml;
-        resolve(jxon.jsToString(xml));
+
+        const section = {
+          $name: "configuration",
+          profile: xml,
+        };
+
+        const document = {
+          $type: "freeswitch/xml",
+          section,
+        };
+
+        // console.log(document);
+        // process.exit(0);
+
+        resolve(jxon.jsToString(document));
       });
       // profile.on("end", () => {
       //   console.log(xml);
@@ -100,8 +114,8 @@ module.exports = {
   loadProfileTemplate,
 };
 
-// let execute = async () => {
-//   console.log(await loadProfileTemplate());
-// };
+let execute = async () => {
+  console.log(await loadProfileTemplate());
+};
 
-// execute();
+execute();

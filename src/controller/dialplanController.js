@@ -43,8 +43,12 @@ module.exports = {
     //
     if (
       section === "dialplan" &&
-      variable_sip_to_user >= 1000 &&
-      variable_sip_to_user <= 9999
+      (variable_sip_to_user >= 1000 ||
+        variable_sip_to_user <= 9999 ||
+        variable_sip_to_user >= 11111111 ||
+        variable_sip_to_user <= 99999999) &&
+      (callerContext === "cloud.cloudcom.com.br" ||
+        callerContext === "editorapaulus.cloudcom.com.br")
     ) {
       const xmlText =
         `

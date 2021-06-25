@@ -36,7 +36,7 @@ module.exports = {
 
       let xml = jxon.stringToJs(xmlText);
       res.set("Content-Type", "text/xml");
-      return res.send(xml);
+      return res.send(jxon.jsToString(xml));
     }
 
     res.set("Content-Type", "text/xml");

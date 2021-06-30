@@ -103,11 +103,11 @@ module.exports = {
                   <action application="set" data="effective_caller_id_number=${
                     listaRamais[variable_sip_from_host].find(
                       (item) => item.USERNAME === variable_sip_from_user
-                    ).NAME
+                    ).RAMAL
                   }"/> <action application="set" data="effective_caller_id_name=${
         listaRamais[variable_sip_from_host].find(
           (item) => item.USERNAME === variable_sip_from_user
-        ).RAMAL
+        ).NAME
       }"/>
                   <action application="bridge" data="user/${variable_sip_to_user}@${callerContext}"/>
                 </condition>

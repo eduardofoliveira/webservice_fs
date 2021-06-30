@@ -74,7 +74,7 @@ const loadProfileTemplate = ({ users }) => {
         for (let i = 0; i < users.length; i++) {
           const { gatewayName, password, realm, username, proxy } = users[i];
 
-          console.log({ gatewayName, password, realm, username, proxy });
+          // console.log({ gatewayName, password, realm, username, proxy });
 
           let { gateway: item } = await loadGatewayTemplate({
             gatewayName,
@@ -93,7 +93,7 @@ const loadProfileTemplate = ({ users }) => {
 
         profileXml.document.section.configuration.profiles.profile.gateways =
           gateways;
-        console.log(profileXml.document.section.configuration.profiles.profile);
+        // console.log(profileXml.document.section.configuration.profiles.profile);
 
         resolve(jxon.jsToString(profileXml));
       });

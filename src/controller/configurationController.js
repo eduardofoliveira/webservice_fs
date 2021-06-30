@@ -1,5 +1,7 @@
 const { loadProfileTemplate } = require("../util/xmlTemplate");
 const DirectoryRepository = require("../repository/directoryRepository");
+const DomainRepositoryMysql = require("../repository/domainRepositoryMysql");
+const GatewayBasixRepositoryMysql = require("../repository/gatewayBasixRepositoryMysql");
 
 module.exports = {
   async index(req, res) {
@@ -7,16 +9,42 @@ module.exports = {
 
     if (section === "configuration" && profile === "internal") {
       const directoryRepository = new DirectoryRepository();
+      const domainRepositoryMysql = new DomainRepositoryMysql();
+      const gatewayBasixRepositoryMysql = new GatewayBasixRepositoryMysql();
 
-      const usersCloud = await directoryRepository.getDomainGateways({
-        domain: "cloud.cloudcom.com.br",
+      const activeDomains = await domainRepositoryMysql.getActiveDomains();
+
+      let users = [];
+
+      for (let i = 0; i < activeDomains.length; i++) {
+        const domainItem = activeDomains[i];
+
+        const usersList = await directoryRepository.getDomainGateways({
+          domain: domainItem.domain,
+        });
+
+        users = [...usersList, ...users];
+      }
+
+      const enableGateways =
+        await gatewayBasixRepositoryMysql.getActiveGateways();
+
+      users = users.filter((userItem) => {
+        const existe = enableGateways.find((gatewayItem) => {
+          if (
+            gatewayItem.username === userItem.VCH_USERNAME &&
+            gatewayItem.domain === userItem.VCH_DOMAIN
+          ) {
+            return true;
+          }
+          return false;
+        });
+
+        if (existe) {
+          return true;
+        }
+        return false;
       });
-
-      const usersEditora = await directoryRepository.getDomainGateways({
-        domain: "editorapaulus.cloudcom.com.br",
-      });
-
-      let users = [...usersCloud, ...usersEditora];
 
       users = users.map((item) => {
         return {
@@ -34,5 +62,12 @@ module.exports = {
     }
 
     return res.send("...Configuration");
+  },
+
+  async test(req, res) {
+    const gatewayBasixRepositoryMysql = new GatewayBasixRepositoryMysql();
+    const gateways = await gatewayBasixRepositoryMysql.getActiveGateways();
+
+    return res.json(gateways);
   },
 };

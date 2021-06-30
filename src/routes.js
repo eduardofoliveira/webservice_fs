@@ -8,4 +8,6 @@ routes.post("/dialplan", dialplanController.index);
 routes.post("/directory", directoryController.index);
 routes.post("/configuration", configurationController.index);
 
+routes.post("/configuration/test", configurationController.test);
+
 module.exports = routes;

@@ -7,10 +7,33 @@ module.exports = {
       variable_user_name,
       variable_domain_name,
       variable_sip_to_user,
+      variable_sip_to_host,
       variable_sip_from_user,
       variable_sip_from_host,
     } = req.body;
     const callerContext = req.body["Caller-Context"];
+
+    //
+    // 1 Contexto : dominio || public
+    // 2 From : usuario || DID
+    // 3 From Host : dominio || IP
+    // 4 To : usuario || DID
+    // 4 To Host : dominio || IP
+    //
+
+    const context = callerContext;
+    const from = variable_sip_from_user;
+    const fromHost = variable_sip_from_host;
+    const to = variable_sip_to_user;
+    const toHost = variable_sip_to_host;
+
+    console.log({
+      context,
+      from,
+      fromHost,
+      to,
+      toHost,
+    });
 
     //
     // Chamadas Recebidas Externas para ramais internos
@@ -104,12 +127,12 @@ module.exports = {
       return res.send(jxon.jsToString(xml));
     }
 
-    console.log({
-      body: req.body,
-      params: req.params,
-      query: req.query,
-      headers: req.headers,
-    });
+    // console.log({
+    //   body: req.body,
+    //   params: req.params,
+    //   query: req.query,
+    //   headers: req.headers,
+    // });
 
     res.set("Content-Type", "text/xml");
     return res.send("...Dialplan");

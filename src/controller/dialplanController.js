@@ -151,14 +151,19 @@ module.exports = {
       return res.send(jxon.jsToString(xml));
     }
 
-    // console.log({
-    //   body: req.body,
-    //   params: req.params,
-    //   query: req.query,
-    //   headers: req.headers,
-    // });
+    //
+    // Caso não seja nenhum dos tipos acima é retornado 404 not found
+    //
+    const xmlText = `
+        <document type="freeswitch/xml">
+          <section name="dialplan" description="RE Dial Plan For FreeSwitch">
+            <result status="not found" />
+          </section>
+        </document>
+        `;
 
+    let xml = jxon.stringToJs(xmlText);
     res.set("Content-Type", "text/xml");
-    return res.send("...Dialplan");
+    return res.send(jxon.jsToString(xml));
   },
 };

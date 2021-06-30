@@ -14,7 +14,7 @@ module.exports = {
     },
   },
   production_mysql: {
-    debug: true,
+    // debug: true,
     client: "mysql2",
     connection: {
       user: process.env.CLOUD_MYSQL_USER,

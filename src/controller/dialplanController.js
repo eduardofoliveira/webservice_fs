@@ -92,7 +92,7 @@ module.exports = {
       listDomains.includes(variable_sip_from_host) &&
       listaRamais[variable_sip_from_host]
         .map((item) => item.USERNAME)
-        .includes(variable_sip_from_user)
+        .includes(variable_sip_to_user)
     ) {
       const xmlText = `
         <document type="freeswitch/xml">

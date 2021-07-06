@@ -75,11 +75,10 @@ module.exports = {
           <section name="dialplan" description="RE Dial Plan For FreeSwitch">
             <context name="public">
               <extension name="${variable_sip_from_user}-${variable_sip_to_user}">
-                <condition field="destination_number" expression="^3040(.*)$">
-                  <action application="set" data="effective_caller_id_number=` +
-        "${sip_from_user:2}" +
-        `"/>
-                  <action application="bridge" data="{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/astpp/${prefixo}$1"/>
+                <condition field="destination_number" expression="^3040(.*)$">` +
+        '<action application="set" data="effective_caller_id_number=${sip_from_user:2}"/>' +
+        '<action application="set" data="effective_caller_id_name=${sip_from_user:2}"/>' +
+        `<action application="bridge" data="{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/astpp/${prefixo}$1"/>
                 </condition>
               </extension>
             </context>

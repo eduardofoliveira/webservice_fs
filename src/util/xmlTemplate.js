@@ -71,7 +71,7 @@ const loadGatewaySaidaTemplate = ({ gatewayName, proxy }) => {
     try {
       let xml = null;
 
-      let gatewayXml = jxon.stringToJs(gatewayTemplate);
+      let gatewayXml = jxon.stringToJs(gatewaySaidaTemplate);
       xml = gatewayXml;
 
       xml.gateway.$name = gatewayName;

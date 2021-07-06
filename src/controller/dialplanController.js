@@ -1,6 +1,7 @@
 const jxon = require("jxon");
 const DirectoryRepository = require("../repository/directoryRepository");
 const DomainRepositoryMysql = require("../repository/domainRepositoryMysql");
+const { buscarOperadoraPrefixo } = require("../repository/operadoraRepositoy");
 
 let listaRamais = {};
 let listDomains = [];
@@ -57,6 +58,34 @@ module.exports = {
 
       listaRamais[toHost] = listExtensions;
       console.log(listaRamais);
+    }
+
+    //
+    // Chamadas recebida do Basix para terminação
+    //
+    if (
+      callerContext === "public" &&
+      variable_sip_from_host === "centrex.brastel.com.br"
+    ) {
+      const prefixo = await buscarOperadoraPrefixo({ fromDID: from });
+
+      const xmlText = `
+        <document type="freeswitch/xml">
+          <section name="dialplan" description="RE Dial Plan For FreeSwitch">
+            <context name="public">
+              <extension name="${variable_sip_from_user}-${variable_sip_to_user}">
+                <condition field="destination_number" expression="^3040(.*)$">
+                  <action application="bridge" data="{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/astpp/${prefixo}$1"/>
+                </condition>
+              </extension>
+            </context>
+          </section>
+        </document>
+        `;
+
+      let xml = jxon.stringToJs(xmlText);
+      res.set("Content-Type", "text/xml");
+      return res.send(jxon.jsToString(xml));
     }
 
     //

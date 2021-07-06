@@ -1,10 +1,16 @@
 const jxon = require("jxon");
 const fs = require("fs");
 let gatewayTemplate = "";
+let gatewaySaidaTemplate = "";
 
 const gateway = fs.createReadStream("./src/util/gateway_base.xml");
 gateway.on("data", (data) => {
   gatewayTemplate = data.toString();
+});
+
+const gatewaySaida = fs.createReadStream("./src/util/gateway_saida_base.xml");
+gatewaySaida.on("data", (data) => {
+  gatewaySaidaTemplate = data.toString();
 });
 
 const loadGatewayTemplate = ({
@@ -60,6 +66,32 @@ const loadGatewayTemplate = ({
   });
 };
 
+const loadGatewaySaidaTemplate = ({ gatewayName, proxy }) => {
+  return new Promise((resolve, reject) => {
+    try {
+      let xml = null;
+
+      let gatewayXml = jxon.stringToJs(gatewayTemplate);
+      xml = gatewayXml;
+
+      xml.gateway.$name = gatewayName;
+      for (let i = 0; i < xml.gateway.param.length; i++) {
+        const item = xml.gateway.param[i];
+
+        if (item.$name === "proxy") {
+          item.$value = proxy;
+        }
+
+        xml.gateway.param[i] = item;
+      }
+
+      resolve(xml);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const loadProfileTemplate = ({ users }) => {
   return new Promise((resolve, reject) => {
     try {
@@ -70,6 +102,13 @@ const loadProfileTemplate = ({ users }) => {
         let profileXml = jxon.stringToJs(profileTemplate);
 
         const gateway = [];
+
+        let { gateway: item } = await loadGatewaySaidaTemplate({
+          gatewayName: "astpp",
+          proxy: "54.233.223.179",
+        });
+
+        gateway.push(item);
 
         for (let i = 0; i < users.length; i++) {
           const { gatewayName, password, realm, username, proxy } = users[i];

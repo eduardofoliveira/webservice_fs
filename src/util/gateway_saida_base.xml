@@ -1,0 +1,6 @@
+<gateway name="Transit">
+  <param name="proxy" value="200.162.139.25"/>
+  <param name="register" value="false"/>
+  <param name="caller-id-in-from" value="true"/>
+  <param name="extension-in-contact" value="false"/>
+</gateway>

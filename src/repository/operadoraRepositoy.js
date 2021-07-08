@@ -5,6 +5,7 @@ let relacaoOperadoraPrefixo = {
   "Americanet-Cloud": 3010,
   "GT Group-Cloud": 3027,
   "TVN - BRDID": 3026,
+  "Tellegroup-Cloud": 3019,
 };
 
 let cache = {};

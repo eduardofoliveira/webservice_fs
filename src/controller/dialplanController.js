@@ -91,7 +91,7 @@ module.exports = {
                 <condition field="destination_number" expression="^3040(.*)$">` +
           '<action application="set" data="effective_caller_id_number=${sip_from_user:2}"/>' +
           '<action application="set" data="effective_caller_id_name=${sip_from_user:2}"/>' +
-          `<action application="answer"/>
+          `<!-- <action application="answer"/> -->
           <action application="set" data="inherit_codec=true"/>
           <action application="set" data="bridge_generate_comfort_noise=true"/>
           <action application="set" data="ringback=` +

@@ -66,6 +66,7 @@
             <param name="wss-binding" value=":7443"/>
 
             <param name="challenge-realm" value="auto_from"/>
+            <param name="auto-invite-100" value="false"/>
           </settings>
           <gateways>
             <!-- <gateway name="Transit">

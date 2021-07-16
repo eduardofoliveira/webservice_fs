@@ -97,6 +97,7 @@ module.exports = {
           <action application="set" data="ringback=` +
           "${us-ring}" +
           `"/>
+                  <action application="set" data="instant_ringback=true"/>
                   <action application="bridge" data="{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/astpp/${prefixo}$1"/>
                 </condition>
               </extension>

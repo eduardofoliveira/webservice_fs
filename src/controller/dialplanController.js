@@ -64,8 +64,9 @@ module.exports = {
     // Chamadas recebida do Basix para terminação
     //
     if (
-      callerContext === "public" &&
-      variable_sip_from_host === "centrex.brastel.com.br"
+      (callerContext === "public" &&
+        variable_sip_from_host === "centrex.brastel.com.br") ||
+      (callerContext === "public" && variable_sip_from_host === "54.207.81.171")
     ) {
       const prefixo = await buscarOperadoraPrefixo({ fromDID: from });
 

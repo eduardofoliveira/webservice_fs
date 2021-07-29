@@ -54,7 +54,7 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
       if (itemPrefixo === 3022) {
         xml.document.section.context.extension.condition.action.push({
           $application: "bridge",
-          $data: `{absolute_codec_string=^^:G729,bypass_media=true}sofia/internal/3041$1@54.207.81.171:5260`,
+          $data: `{bypass_media=true}sofia/internal/3041$1@54.207.81.171:5260`,
         });
       } else {
         xml.document.section.context.extension.condition.action.push({
@@ -67,7 +67,7 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
     if (itemPrefixo === 3022) {
       xml.document.section.context.extension.condition.action.push({
         $application: "bridge",
-        $data: `{absolute_codec_string=^^:G729,bypass_media=true}sofia/internal/3041$1@54.207.81.171:5260`,
+        $data: `{bypass_media=true}sofia/internal/3041$1@54.207.81.171:5260`,
       });
     } else {
       xml.document.section.context.extension.condition.action.push({
@@ -79,7 +79,7 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
     if (itemPrefixo === 3022) {
       xml.document.section.context.extension.condition.action.push({
         $application: "bridge",
-        $data: `{absolute_codec_string=^^:G729,bypass_media=true}sofia/internal/3041$1@54.207.81.171:5260`,
+        $data: `{bypass_media=true}sofia/internal/3041$1@54.207.81.171:5260`,
       });
     } else {
       xml.document.section.context.extension.condition.action.push({

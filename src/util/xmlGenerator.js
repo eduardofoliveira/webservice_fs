@@ -52,18 +52,18 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
       const itemPrefixo = prefixo[i];
 
       if (itemPrefixo === 3022) {
-        xml.document.section.context.extension.condition.action.push({
-          $application: "set",
-          $data: `bypass_media=true`,
-        });
+        // xml.document.section.context.extension.condition.action.push({
+        //   $application: "set",
+        //   $data: `bypass_media=true`,
+        // });
         xml.document.section.context.extension.condition.action.push({
           $application: "bridge",
           $data: `sofia/internal/3041$1@54.207.81.171:5260`,
         });
-        xml.document.section.context.extension.condition.action.push({
-          $application: "set",
-          $data: `bypass_media=false`,
-        });
+        // xml.document.section.context.extension.condition.action.push({
+        //   $application: "set",
+        //   $data: `bypass_media=false`,
+        // });
       } else {
         xml.document.section.context.extension.condition.action.push({
           $application: "bridge",
@@ -73,18 +73,18 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
     }
   } else if (typeof prefixo === "string") {
     if (prefixo === 3022) {
-      xml.document.section.context.extension.condition.action.push({
-        $application: "set",
-        $data: `bypass_media=true`,
-      });
+      // xml.document.section.context.extension.condition.action.push({
+      //   $application: "set",
+      //   $data: `bypass_media=true`,
+      // });
       xml.document.section.context.extension.condition.action.push({
         $application: "bridge",
         $data: `sofia/internal/3041$1@54.207.81.171:5260`,
       });
-      xml.document.section.context.extension.condition.action.push({
-        $application: "set",
-        $data: `bypass_media=false`,
-      });
+      // xml.document.section.context.extension.condition.action.push({
+      //   $application: "set",
+      //   $data: `bypass_media=false`,
+      // });
     } else {
       xml.document.section.context.extension.condition.action.push({
         $application: "bridge",
@@ -93,18 +93,18 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
     }
   } else if (typeof prefixo === "number") {
     if (prefixo === 3022) {
-      xml.document.section.context.extension.condition.action.push({
-        $application: "set",
-        $data: `bypass_media=true`,
-      });
+      // xml.document.section.context.extension.condition.action.push({
+      //   $application: "set",
+      //   $data: `bypass_media=true`,
+      // });
       xml.document.section.context.extension.condition.action.push({
         $application: "bridge",
         $data: `sofia/internal/3041$1@54.207.81.171:5260`,
       });
-      xml.document.section.context.extension.condition.action.push({
-        $application: "set",
-        $data: `bypass_media=false`,
-      });
+      // xml.document.section.context.extension.condition.action.push({
+      //   $application: "set",
+      //   $data: `bypass_media=false`,
+      // });
     } else {
       xml.document.section.context.extension.condition.action.push({
         $application: "bridge",

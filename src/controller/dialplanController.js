@@ -85,7 +85,7 @@ module.exports = {
           xml = generateOutboundRoute({
             from: variable_sip_from_user,
             to: variable_sip_to_user,
-            prefixo: [prefixo, 3022],
+            prefixo: [prefixo, 3012],
           });
         } else {
           xml = generateOutboundRoute({

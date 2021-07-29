@@ -64,7 +64,7 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
       }
     }
   } else if (typeof prefixo === "string") {
-    if (itemPrefixo === 3022) {
+    if (prefixo === 3022) {
       xml.document.section.context.extension.condition.action.push({
         $application: "bridge",
         $data: `{bypass_media=true}sofia/internal/3041$1@54.207.81.171:5260`,
@@ -76,7 +76,7 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
       });
     }
   } else if (typeof prefixo === "number") {
-    if (itemPrefixo === 3022) {
+    if (prefixo === 3022) {
       xml.document.section.context.extension.condition.action.push({
         $application: "bridge",
         $data: `{bypass_media=true}sofia/internal/3041$1@54.207.81.171:5260`,

@@ -53,8 +53,16 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
 
       if (itemPrefixo === 3022) {
         xml.document.section.context.extension.condition.action.push({
+          $application: "set",
+          $data: `bypass_media=true`,
+        });
+        xml.document.section.context.extension.condition.action.push({
           $application: "bridge",
-          $data: `{bypass_media=true}sofia/internal/3041$1@54.207.81.171:5260`,
+          $data: `sofia/internal/3041$1@54.207.81.171:5260`,
+        });
+        xml.document.section.context.extension.condition.action.push({
+          $application: "set",
+          $data: `bypass_media=false`,
         });
       } else {
         xml.document.section.context.extension.condition.action.push({
@@ -66,8 +74,16 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
   } else if (typeof prefixo === "string") {
     if (prefixo === 3022) {
       xml.document.section.context.extension.condition.action.push({
+        $application: "set",
+        $data: `bypass_media=true`,
+      });
+      xml.document.section.context.extension.condition.action.push({
         $application: "bridge",
-        $data: `{bypass_media=true}sofia/internal/3041$1@54.207.81.171:5260`,
+        $data: `sofia/internal/3041$1@54.207.81.171:5260`,
+      });
+      xml.document.section.context.extension.condition.action.push({
+        $application: "set",
+        $data: `bypass_media=false`,
       });
     } else {
       xml.document.section.context.extension.condition.action.push({
@@ -78,8 +94,16 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
   } else if (typeof prefixo === "number") {
     if (prefixo === 3022) {
       xml.document.section.context.extension.condition.action.push({
+        $application: "set",
+        $data: `bypass_media=true`,
+      });
+      xml.document.section.context.extension.condition.action.push({
         $application: "bridge",
-        $data: `{bypass_media=true}sofia/internal/3041$1@54.207.81.171:5260`,
+        $data: `sofia/internal/3041$1@54.207.81.171:5260`,
+      });
+      xml.document.section.context.extension.condition.action.push({
+        $application: "set",
+        $data: `bypass_media=false`,
       });
     } else {
       xml.document.section.context.extension.condition.action.push({

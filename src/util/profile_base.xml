@@ -67,6 +67,7 @@
 
             <param name="challenge-realm" value="auto_from"/>
             <!-- <param name="auto-invite-100" value="true"/> -->
+            
           </settings>
           <gateways>
             <!-- <gateway name="Transit">

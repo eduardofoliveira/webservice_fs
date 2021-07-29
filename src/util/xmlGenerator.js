@@ -54,12 +54,12 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
       if (itemPrefixo === 3022) {
         xml.document.section.context.extension.condition.action.push({
           $application: "bridge",
-          $data: `{absolute_codec_string=^^:G729}sofia/gateway/astpp/${itemPrefixo}$1`,
+          $data: `{absolute_codec_string=^^:G729}sofia/internal/$1`,
         });
       } else {
         xml.document.section.context.extension.condition.action.push({
           $application: "bridge",
-          $data: `{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/astpp/${itemPrefixo}$1`,
+          $data: `{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/astpp/3041$1`,
         });
       }
     }
@@ -67,7 +67,7 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
     if (itemPrefixo === 3022) {
       xml.document.section.context.extension.condition.action.push({
         $application: "bridge",
-        $data: `{absolute_codec_string=^^:G729}sofia/gateway/astpp/${prefixo}$1`,
+        $data: `{absolute_codec_string=^^:G729}sofia/internal/$1`,
       });
     } else {
       xml.document.section.context.extension.condition.action.push({
@@ -79,7 +79,7 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
     if (itemPrefixo === 3022) {
       xml.document.section.context.extension.condition.action.push({
         $application: "bridge",
-        $data: `{absolute_codec_string=^^:G729}sofia/gateway/astpp/${prefixo}$1`,
+        $data: `{absolute_codec_string=^^:G729}sofia/internal/$1`,
       });
     } else {
       xml.document.section.context.extension.condition.action.push({

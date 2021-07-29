@@ -27,11 +27,15 @@ const buscarOperadoraPrefixo = async ({ fromDID }) => {
     did = fromDID.replace("55", "");
   }
 
-  const operadora = await buscaOperadora({ ddr: did });
+  try {
+    const operadora = await buscaOperadora({ ddr: did });
 
-  cache[fromDID] = relacaoOperadoraPrefixo[operadora];
+    cache[fromDID] = relacaoOperadoraPrefixo[operadora];
 
-  return relacaoOperadoraPrefixo[operadora];
+    return relacaoOperadoraPrefixo[operadora];
+  } catch (error) {
+    return 3027;
+  }
 };
 
 module.exports = {

@@ -51,21 +51,42 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
     for (let i = 0; i < prefixo.length; i++) {
       const itemPrefixo = prefixo[i];
 
-      xml.document.section.context.extension.condition.action.push({
-        $application: "bridge",
-        $data: `{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/astpp/${itemPrefixo}$1`,
-      });
+      if (itemPrefixo === 3022) {
+        xml.document.section.context.extension.condition.action.push({
+          $application: "bridge",
+          $data: `{absolute_codec_string=^^:G729}sofia/gateway/astpp/${itemPrefixo}$1`,
+        });
+      } else {
+        xml.document.section.context.extension.condition.action.push({
+          $application: "bridge",
+          $data: `{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/astpp/${itemPrefixo}$1`,
+        });
+      }
     }
   } else if (typeof prefixo === "string") {
-    xml.document.section.context.extension.condition.action.push({
-      $application: "bridge",
-      $data: `{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/astpp/${prefixo}$1`,
-    });
+    if (itemPrefixo === 3022) {
+      xml.document.section.context.extension.condition.action.push({
+        $application: "bridge",
+        $data: `{absolute_codec_string=^^:G729}sofia/gateway/astpp/${prefixo}$1`,
+      });
+    } else {
+      xml.document.section.context.extension.condition.action.push({
+        $application: "bridge",
+        $data: `{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/astpp/${prefixo}$1`,
+      });
+    }
   } else if (typeof prefixo === "number") {
-    xml.document.section.context.extension.condition.action.push({
-      $application: "bridge",
-      $data: `{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/astpp/${prefixo}$1`,
-    });
+    if (itemPrefixo === 3022) {
+      xml.document.section.context.extension.condition.action.push({
+        $application: "bridge",
+        $data: `{absolute_codec_string=^^:G729}sofia/gateway/astpp/${prefixo}$1`,
+      });
+    } else {
+      xml.document.section.context.extension.condition.action.push({
+        $application: "bridge",
+        $data: `{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/astpp/${prefixo}$1`,
+      });
+    }
   }
 
   return jxon.jsToString(xml);

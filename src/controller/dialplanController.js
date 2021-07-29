@@ -67,16 +67,11 @@ module.exports = {
     // Chamadas recebida do Basix para terminação
     //
     if (
-      (callerContext === "public" &&
-        variable_sip_from_host === "centrex.brastel.com.br") ||
-      (callerContext === "public" && variable_sip_from_host === "54.207.81.171")
+      (context === "public" && fromHost === "centrex.brastel.com.br") ||
+      (context === "public" && fromHost === "54.207.81.171")
     ) {
-      const type = getCallType({
-        to: variable_sip_to_user,
-      });
-
+      const type = getCallType({ to });
       const prefixo = await buscarOperadoraPrefixo({ fromDID: from });
-
       let xml = null;
 
       if (!prefixo) {
@@ -86,22 +81,22 @@ module.exports = {
       } else {
         if (type.type === "movel") {
           xml = generateOutboundRoute({
-            from: variable_sip_from_user,
-            to: variable_sip_to_user,
+            from,
+            to,
             prefixo: [3022, 3027, prefixo],
           });
         }
         if (type.type === "fixo") {
           if (prefixo === 3027) {
             xml = generateOutboundRoute({
-              from: variable_sip_from_user,
-              to: variable_sip_to_user,
+              from,
+              to,
               prefixo: [prefixo, 3012],
             });
           } else {
             xml = generateOutboundRoute({
-              from: variable_sip_from_user,
-              to: variable_sip_to_user,
+              from,
+              to,
               prefixo,
             });
           }
@@ -109,14 +104,14 @@ module.exports = {
         if (type.type === "4002" || type.type === "4003") {
           if (prefixo === 3027) {
             xml = generateOutboundRoute({
-              from: variable_sip_from_user,
-              to: variable_sip_to_user,
+              from,
+              to,
               prefixo: [prefixo, 3012],
             });
           } else {
             xml = generateOutboundRoute({
-              from: variable_sip_from_user,
-              to: variable_sip_to_user,
+              from,
+              to,
               prefixo,
             });
           }
@@ -124,14 +119,14 @@ module.exports = {
         if (type.type === "0800") {
           if (prefixo === 3027) {
             xml = generateOutboundRoute({
-              from: variable_sip_from_user,
-              to: variable_sip_to_user,
+              from,
+              to,
               prefixo: [prefixo, 3012],
             });
           } else {
             xml = generateOutboundRoute({
-              from: variable_sip_from_user,
-              to: variable_sip_to_user,
+              from,
+              to,
               prefixo,
             });
           }
@@ -139,14 +134,14 @@ module.exports = {
         if (type.type === "0300") {
           if (prefixo === 3027) {
             xml = generateOutboundRoute({
-              from: variable_sip_from_user,
-              to: variable_sip_to_user,
+              from,
+              to,
               prefixo: [prefixo, 3012],
             });
           } else {
             xml = generateOutboundRoute({
-              from: variable_sip_from_user,
-              to: variable_sip_to_user,
+              from,
+              to,
               prefixo,
             });
           }
@@ -154,14 +149,14 @@ module.exports = {
         if (type.type === "não determinado") {
           if (prefixo === 3027) {
             xml = generateOutboundRoute({
-              from: variable_sip_from_user,
-              to: variable_sip_to_user,
+              from,
+              to,
               prefixo: [prefixo, 3012],
             });
           } else {
             xml = generateOutboundRoute({
-              from: variable_sip_from_user,
-              to: variable_sip_to_user,
+              from,
+              to,
               prefixo,
             });
           }
@@ -175,17 +170,14 @@ module.exports = {
     //
     // Chamadas recebida do Basix para um dominio que esteja habilitado
     //
-    if (
-      callerContext === "public" &&
-      listDomains.includes(variable_sip_from_host)
-    ) {
+    if (context === "public" && listDomains.includes(fromHost)) {
       const xmlText = `
         <document type="freeswitch/xml">
           <section name="dialplan" description="RE Dial Plan For FreeSwitch">
-            <context name="${callerContext}">
-              <extension name="${variable_sip_from_user}-${variable_sip_to_user}">
-                <condition field="destination_number" expression="^(${variable_sip_to_user})$">
-                  <action application="transfer" data="$1 XML ${variable_sip_from_host}"/>
+            <context name="${context}">
+              <extension name="${from}-${to}">
+                <condition field="destination_number" expression="^(${to})$">
+                  <action application="transfer" data="$1 XML ${fromHost}"/>
                 </condition>
               </extension>
             </context>
@@ -202,27 +194,22 @@ module.exports = {
     // Chamadas que foram transferidas do contexto public para um contexto interno destinadas a ramais
     //
     if (
-      listDomains.includes(variable_sip_from_host) &&
-      listaRamais[variable_sip_from_host]
-        .map((item) => item.USERNAME)
-        .includes(variable_sip_to_user)
+      listDomains.includes(fromHost) &&
+      listaRamais[fromHost].map((item) => item.USERNAME).includes(to)
     ) {
       const xmlText = `
         <document type="freeswitch/xml">
           <section name="dialplan" description="RE Dial Plan For FreeSwitch">
-            <context name="${callerContext}">
-              <extension name="${variable_sip_from_user}-${variable_sip_to_user}">
-                <condition field="destination_number" expression="^(${variable_sip_to_user})$">
+            <context name="${context}">
+              <extension name="${from}-${to}">
+                <condition field="destination_number" expression="^(${to})$">
                   <action application="set" data="effective_caller_id_number=${
-                    listaRamais[variable_sip_from_host].find(
-                      (item) => item.USERNAME === variable_sip_from_user
-                    ).RAMAL
+                    listaRamais[fromHost].find((item) => item.USERNAME === from)
+                      .RAMAL
                   }"/> <action application="set" data="effective_caller_id_name=${
-        listaRamais[variable_sip_from_host].find(
-          (item) => item.USERNAME === variable_sip_from_user
-        ).NAME
+        listaRamais[fromHost].find((item) => item.USERNAME === from).NAME
       }"/>
-                  <action application="bridge" data="user/${variable_sip_to_user}@${callerContext}"/>
+                  <action application="bridge" data="user/${to}@${context}"/>
                 </condition>
               </extension>
             </context>
@@ -238,16 +225,13 @@ module.exports = {
     //
     // Chamadas externas
     //
-    if (
-      section === "dialplan" &&
-      listDomains.includes(variable_sip_from_host)
-    ) {
+    if (section === "dialplan" && listDomains.includes(fromHost)) {
       const xmlText =
         `
         <document type="freeswitch/xml">
           <section name="dialplan" description="RE Dial Plan For FreeSwitch">
             <context name="${variable_sip_to_host}">
-              <extension name="${variable_sip_from_user}-${variable_sip_to_user}">
+              <extension name="${from}-${to}">
                 <condition field="destination_number" expression="^(.*)$">
                   <action application="bridge" data="{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/` +
         "${register-gateway}" +

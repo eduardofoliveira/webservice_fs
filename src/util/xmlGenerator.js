@@ -24,6 +24,7 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
     '<action application="set" data="effective_caller_id_name=${sip_from_user:2}"/>' +
     `<action application="set" data="inherit_codec=true"/>
     <action application="set" data="bridge_generate_comfort_noise=true"/>
+    <action application="export" data="bridge_generate_comfort_noise=true"/>
     <action application="set" data="ringback=` +
     "${us-ring}" +
     `"/>

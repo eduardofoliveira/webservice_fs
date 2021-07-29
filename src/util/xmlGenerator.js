@@ -38,8 +38,6 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
 
   xml = jxon.stringToJs(xmlText);
 
-  console.log(typeof prefixo);
-
   if (Array.isArray(prefixo)) {
     xml.document.section.context.extension.condition.action.push({
       $application: "set",

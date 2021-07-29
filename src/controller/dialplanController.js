@@ -4,6 +4,7 @@ const DirectoryRepository = require("../repository/directoryRepository");
 const DomainRepositoryMysql = require("../repository/domainRepositoryMysql");
 const { buscarOperadoraPrefixo } = require("../repository/operadoraRepositoy");
 const { generateOutboundRoute, notFound } = require("../util/xmlGenerator");
+const { getCallType } = require("../util/call");
 
 let listaRamais = {};
 let listDomains = [];
@@ -70,29 +71,100 @@ module.exports = {
         variable_sip_from_host === "centrex.brastel.com.br") ||
       (callerContext === "public" && variable_sip_from_host === "54.207.81.171")
     ) {
+      const type = getCallType({
+        to: variable_sip_to_user,
+      });
+
       const prefixo = await buscarOperadoraPrefixo({ fromDID: from });
 
       let xml = null;
-
-      console.log(prefixo);
 
       if (!prefixo) {
         xml = notFound();
         res.set("Content-Type", "text/xml");
         return res.send(xml);
       } else {
-        if (prefixo === 3027) {
+        if (type.type === "movel") {
           xml = generateOutboundRoute({
             from: variable_sip_from_user,
             to: variable_sip_to_user,
-            prefixo: [prefixo, 3012],
+            prefixo: [3022, 3027, prefixo],
           });
-        } else {
-          xml = generateOutboundRoute({
-            from: variable_sip_from_user,
-            to: variable_sip_to_user,
-            prefixo,
-          });
+        }
+        if (type.type === "fixo") {
+          if (prefixo === 3027) {
+            xml = generateOutboundRoute({
+              from: variable_sip_from_user,
+              to: variable_sip_to_user,
+              prefixo: [prefixo, 3012],
+            });
+          } else {
+            xml = generateOutboundRoute({
+              from: variable_sip_from_user,
+              to: variable_sip_to_user,
+              prefixo,
+            });
+          }
+        }
+        if (type.type === "4002" || type.type === "4003") {
+          if (prefixo === 3027) {
+            xml = generateOutboundRoute({
+              from: variable_sip_from_user,
+              to: variable_sip_to_user,
+              prefixo: [prefixo, 3012],
+            });
+          } else {
+            xml = generateOutboundRoute({
+              from: variable_sip_from_user,
+              to: variable_sip_to_user,
+              prefixo,
+            });
+          }
+        }
+        if (type.type === "0800") {
+          if (prefixo === 3027) {
+            xml = generateOutboundRoute({
+              from: variable_sip_from_user,
+              to: variable_sip_to_user,
+              prefixo: [prefixo, 3012],
+            });
+          } else {
+            xml = generateOutboundRoute({
+              from: variable_sip_from_user,
+              to: variable_sip_to_user,
+              prefixo,
+            });
+          }
+        }
+        if (type.type === "0300") {
+          if (prefixo === 3027) {
+            xml = generateOutboundRoute({
+              from: variable_sip_from_user,
+              to: variable_sip_to_user,
+              prefixo: [prefixo, 3012],
+            });
+          } else {
+            xml = generateOutboundRoute({
+              from: variable_sip_from_user,
+              to: variable_sip_to_user,
+              prefixo,
+            });
+          }
+        }
+        if (type.type === "não determinado") {
+          if (prefixo === 3027) {
+            xml = generateOutboundRoute({
+              from: variable_sip_from_user,
+              to: variable_sip_to_user,
+              prefixo: [prefixo, 3012],
+            });
+          } else {
+            xml = generateOutboundRoute({
+              from: variable_sip_from_user,
+              to: variable_sip_to_user,
+              prefixo,
+            });
+          }
         }
 
         res.set("Content-Type", "text/xml");

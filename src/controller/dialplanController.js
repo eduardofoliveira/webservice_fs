@@ -197,6 +197,18 @@ module.exports = {
       listDomains.includes(fromHost) &&
       listaRamais[fromHost].map((item) => item.USERNAME).includes(to)
     ) {
+      console.log(
+        "Chamadas que foram transferidas do contexto public para um contexto interno destinadas a ramais"
+      );
+      console.log({
+        context,
+        from,
+        fromHost,
+        to,
+        toHost,
+      });
+      console.log(listaRamais[fromHost].find((item) => item.USERNAME === from));
+
       const xmlText = `
         <document type="freeswitch/xml">
           <section name="dialplan" description="RE Dial Plan For FreeSwitch">

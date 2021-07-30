@@ -208,14 +208,14 @@ module.exports = {
       //   toHost,
       // });
 
-      let RAMAL = listaRamais[fromHost].find(
+      const ramalEncontrado = listaRamais[fromHost].find(
         (item) => item.USERNAME === from
-      ).RAMAL;
-      let NAME = listaRamais[fromHost].find(
-        (item) => item.USERNAME === from
-      ).NAME;
+      );
 
-      if (!RAMAL) {
+      if (ramalEncontrado) {
+        RAMAL = ramalEncontrado.RAMAL;
+        NAME = ramalEncontrado.NAME;
+      } else {
         RAMAL = from;
         NAME = from;
       }

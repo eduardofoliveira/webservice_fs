@@ -197,17 +197,28 @@ module.exports = {
       listDomains.includes(fromHost) &&
       listaRamais[fromHost].map((item) => item.USERNAME).includes(to)
     ) {
-      console.log(
-        "Chamadas que foram transferidas do contexto public para um contexto interno destinadas a ramais"
-      );
-      console.log({
-        context,
-        from,
-        fromHost,
-        to,
-        toHost,
-      });
-      console.log(listaRamais[fromHost].find((item) => item.USERNAME === from));
+      // console.log(
+      //   "Chamadas que foram transferidas do contexto public para um contexto interno destinadas a ramais"
+      // );
+      // console.log({
+      //   context,
+      //   from,
+      //   fromHost,
+      //   to,
+      //   toHost,
+      // });
+
+      let RAMAL = listaRamais[fromHost].find(
+        (item) => item.USERNAME === from
+      ).RAMAL;
+      let NAME = listaRamais[fromHost].find(
+        (item) => item.USERNAME === from
+      ).NAME;
+
+      if (!RAMAL) {
+        RAMAL = from;
+        NAME = from;
+      }
 
       const xmlText = `
         <document type="freeswitch/xml">
@@ -215,12 +226,8 @@ module.exports = {
             <context name="${context}">
               <extension name="${from}-${to}">
                 <condition field="destination_number" expression="^(${to})$">
-                  <action application="set" data="effective_caller_id_number=${
-                    listaRamais[fromHost].find((item) => item.USERNAME === from)
-                      .RAMAL
-                  }"/> <action application="set" data="effective_caller_id_name=${
-        listaRamais[fromHost].find((item) => item.USERNAME === from).NAME
-      }"/>
+                  <action application="set" data="effective_caller_id_number=${RAMAL}"/>
+                  <action application="set" data="effective_caller_id_name=${NAME}"/>
                   <action application="bridge" data="user/${to}@${context}"/>
                 </condition>
               </extension>

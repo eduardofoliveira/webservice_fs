@@ -2,12 +2,18 @@ const jxon = require("jxon");
 
 const DirectoryRepository = require("../repository/directoryRepository");
 const DomainRepositoryMysql = require("../repository/domainRepositoryMysql");
+const AddressRepository = require("../repository/addressRepository");
 const { buscarOperadoraPrefixo } = require("../repository/operadoraRepositoy");
-const { generateOutboundRoute, notFound } = require("../util/xmlGenerator");
+const {
+  generateOutboundRoute,
+  notFound,
+  generateOutboundRouteToBasix,
+} = require("../util/xmlGenerator");
 const { getCallType } = require("../util/call");
 
 let listaRamais = {};
 let listDomains = [];
+let didsBasix = [];
 
 module.exports = {
   async index(req, res) {
@@ -48,6 +54,16 @@ module.exports = {
     }
 
     //
+    // Busca os DIDs que pertencem ao Basix
+    //
+    if (didsBasix.length === 0) {
+      const addressRepository = new AddressRepository();
+      const dids = await addressRepository.getAllAddress();
+
+      didsBasix = dids.map((item) => item.VCH_ADDRESS);
+    }
+
+    //
     // Verifica se a lista de ramais de um dominio esta em cache, caso não esteja irá buscar do banco Oracle
     //
 
@@ -73,6 +89,15 @@ module.exports = {
       const type = getCallType({ to });
       const prefixo = await buscarOperadoraPrefixo({ fromDID: from });
       let xml = null;
+
+      if (didsBasix.includes(type.number)) {
+        xml = generateOutboundRouteToBasix({
+          from,
+          to,
+        });
+        res.set("Content-Type", "text/xml");
+        return res.send(xml);
+      }
 
       if (!prefixo) {
         xml = notFound();

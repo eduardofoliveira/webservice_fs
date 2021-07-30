@@ -5,7 +5,7 @@ const getCallType = ({ to }) => {
     return {
       type: "0300",
       prefix,
-      number,
+      number: `55${number}`,
     };
   }
 
@@ -15,7 +15,7 @@ const getCallType = ({ to }) => {
     return {
       type: "0800",
       prefix,
-      number,
+      number: `55${number}`,
     };
   }
 
@@ -28,7 +28,7 @@ const getCallType = ({ to }) => {
       type: "4002",
       prefix,
       ddd,
-      number,
+      number: `55${ddd}${number}`,
     };
   }
 
@@ -41,7 +41,7 @@ const getCallType = ({ to }) => {
       type: "4003",
       prefix,
       ddd,
-      number,
+      number: `55${ddd}${number}`,
     };
   }
 
@@ -54,7 +54,7 @@ const getCallType = ({ to }) => {
       type: "fixo",
       prefix,
       ddd,
-      number,
+      number: `55${ddd}${number}`,
     };
   }
 
@@ -67,7 +67,7 @@ const getCallType = ({ to }) => {
       type: "movel",
       prefix,
       ddd,
-      number,
+      number: `55${ddd}${number}`,
     };
   }
 

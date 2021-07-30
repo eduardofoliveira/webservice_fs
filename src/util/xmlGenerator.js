@@ -117,7 +117,43 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
   return jxon.jsToString(xml);
 };
 
+const generateOutboundRouteToBasix = ({ from, to }) => {
+  const xmlText =
+    `
+    <document type="freeswitch/xml">
+      <section name="dialplan" description="RE Dial Plan For FreeSwitch">
+        <context name="public">
+          <extension name="${from}-${to}">
+          <condition field="destination_number" expression="^3040(.*)$">` +
+    '<action application="set" data="effective_caller_id_number=${sip_from_user:2}"/>' +
+    '<action application="set" data="effective_caller_id_name=${sip_from_user:2}"/>' +
+    `<action application="set" data="inherit_codec=true"/>
+    <action application="set" data="bridge_generate_comfort_noise=true"/>
+    <action application="export" data="bridge_generate_comfort_noise=true"/>
+    <action application="set" data="ringback=` +
+    "${us-ring}" +
+    `"/>
+                  <action application="set" data="instant_ringback=true"/>
+                  
+                </condition>
+              </extension>
+            </context>
+          </section>
+        </document>
+  `;
+
+  xml = jxon.stringToJs(xmlText);
+
+  xml.document.section.context.extension.condition.action.push({
+    $application: "bridge",
+    $data: `sofia/internal/3050$1@54.207.81.171:5260`,
+  });
+
+  return jxon.jsToString(xml);
+};
+
 module.exports = {
   notFound,
   generateOutboundRoute,
+  generateOutboundRouteToBasix,
 };

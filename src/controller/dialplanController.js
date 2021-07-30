@@ -171,12 +171,17 @@ module.exports = {
     // Chamadas recebida do Basix para um dominio que esteja habilitado
     //
     if (context === "public" && listDomains.includes(fromHost)) {
-      const xmlText = `
+      const xmlText =
+        `
         <document type="freeswitch/xml">
           <section name="dialplan" description="RE Dial Plan For FreeSwitch">
             <context name="${context}">
               <extension name="${from}-${to}">
                 <condition field="destination_number" expression="^(${to})$">
+                <action application="set" data="ringback=` +
+        "${us-ring}" +
+        `"/>
+                  <action application="set" data="instant_ringback=true"/>
                   <action application="transfer" data="$1 XML ${fromHost}"/>
                 </condition>
               </extension>

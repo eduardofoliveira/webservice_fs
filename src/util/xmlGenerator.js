@@ -12,12 +12,32 @@ const notFound = () => {
   return jxon.jsToString(xml);
 };
 
+const Anonymous =
+  `
+<extension name="terminacao-anonymous">
+    <condition field="network_addr" expression="^18\\.217\\.251\\.102$"/>
+    <condition field="caller_id_name" expression="^Anonymous$"/>
+    <condition field="destination_number" expression="^(\\d{4,6})?(55\\d{2}\\d{8,9})$">
+
+      <action application="sched_hangup" data="+10800 allotted_timeout"/>
+      <action application="set" data="accountcode=anonymous"/>
+      ` +
+  '<action application="set" data="effective_caller_id_number=${sip_from_user:2}"/>' +
+  `<action application="bridge" data="{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/astpp/3012$2"/> <!-- Datora -->
+      <action application="respond" data="486"/>
+    </condition>
+  </extension>
+`;
+
 const generateOutboundRoute = ({ from, to, prefixo }) => {
   const xmlText =
     `
     <document type="freeswitch/xml">
       <section name="dialplan" description="RE Dial Plan For FreeSwitch">
         <context name="public">
+        ${Anonymous}
+          
+
           <extension name="${from}-${to}">
           <condition field="destination_number" expression="^3040(.*)$">` +
     '<action application="set" data="effective_caller_id_number=${sip_from_user:2}"/>' +
@@ -40,11 +60,11 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
   xml = jxon.stringToJs(xmlText);
 
   if (Array.isArray(prefixo)) {
-    xml.document.section.context.extension.condition.action.push({
+    xml.document.section.context.extension[1].condition.action.push({
       $application: "set",
       $data: `continue_on_fail=true`,
     });
-    xml.document.section.context.extension.condition.action.push({
+    xml.document.section.context.extension[1].condition.action.push({
       $application: "set",
       $data: `hangup_after_bridge=true`,
     });
@@ -57,7 +77,7 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
         //   $application: "set",
         //   $data: `bypass_media=true`,
         // });
-        xml.document.section.context.extension.condition.action.push({
+        xml.document.section.context.extension[1].condition.action.push({
           $application: "bridge",
           $data: `sofia/internal/3041$1@54.207.81.171:5260`,
         });
@@ -66,7 +86,7 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
         //   $data: `bypass_media=false`,
         // });
       } else {
-        xml.document.section.context.extension.condition.action.push({
+        xml.document.section.context.extension[1].condition.action.push({
           $application: "bridge",
           $data: `{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/astpp/${itemPrefixo}$1`,
         });
@@ -78,7 +98,7 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
       //   $application: "set",
       //   $data: `bypass_media=true`,
       // });
-      xml.document.section.context.extension.condition.action.push({
+      xml.document.section.context.extension[1].condition.action.push({
         $application: "bridge",
         $data: `sofia/internal/3041$1@54.207.81.171:5260`,
       });
@@ -87,7 +107,7 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
       //   $data: `bypass_media=false`,
       // });
     } else {
-      xml.document.section.context.extension.condition.action.push({
+      xml.document.section.context.extension[1].condition.action.push({
         $application: "bridge",
         $data: `{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/astpp/${prefixo}$1`,
       });
@@ -98,7 +118,7 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
       //   $application: "set",
       //   $data: `bypass_media=true`,
       // });
-      xml.document.section.context.extension.condition.action.push({
+      xml.document.section.context.extension[1].condition.action.push({
         $application: "bridge",
         $data: `sofia/internal/3041$1@54.207.81.171:5260`,
       });
@@ -107,7 +127,7 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
       //   $data: `bypass_media=false`,
       // });
     } else {
-      xml.document.section.context.extension.condition.action.push({
+      xml.document.section.context.extension[1].condition.action.push({
         $application: "bridge",
         $data: `{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/astpp/${prefixo}$1`,
       });

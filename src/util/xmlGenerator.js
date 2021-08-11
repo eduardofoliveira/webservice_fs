@@ -23,7 +23,13 @@ const Anonymous =
       <action application="set" data="accountcode=anonymous"/>
       ` +
   '<action application="set" data="effective_caller_id_number=${sip_from_user:2}"/>' +
-  `<action application="bridge" data="{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/astpp/3012$2"/> <!-- Datora -->
+  `<action application="set" data="bridge_generate_comfort_noise=true"/>
+  <action application="export" data="bridge_generate_comfort_noise=true"/>
+  <action application="set" data="ringback=` +
+  "${us-ring}" +
+  `"/>
+    <action application="set" data="instant_ringback=true"/>
+    <action application="bridge" data="{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/astpp/3012$2"/> <!-- Datora -->
       <action application="respond" data="486"/>
     </condition>
   </extension>

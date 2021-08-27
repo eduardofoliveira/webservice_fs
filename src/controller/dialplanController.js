@@ -105,11 +105,20 @@ module.exports = {
         return res.send(xml);
       } else {
         if (type.type === "movel") {
-          xml = generateOutboundRoute({
-            from,
-            to,
-            prefixo: [3022, 3027, prefixo],
-          });
+          if (prefixo === 3027) {
+            // DID da GtGroup
+            xml = generateOutboundRoute({
+              from,
+              to,
+              prefixo: [3022, 3019, prefixo],
+            });
+          } else {
+            xml = generateOutboundRoute({
+              from,
+              to,
+              prefixo: [3022, prefixo, 3019],
+            });
+          }
         }
         if (type.type === "fixo") {
           if (prefixo === 3027) {

@@ -99,6 +99,15 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
       }
     }
   } else if (typeof prefixo === "string") {
+    xml.document.section.context.extension[1].condition.action.push({
+      $application: "set",
+      $data: `continue_on_fail=true`,
+    });
+    xml.document.section.context.extension[1].condition.action.push({
+      $application: "set",
+      $data: `hangup_after_bridge=true`,
+    });
+
     if (prefixo === 3022) {
       // xml.document.section.context.extension.condition.action.push({
       //   $application: "set",
@@ -119,6 +128,15 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
       });
     }
   } else if (typeof prefixo === "number") {
+    xml.document.section.context.extension[1].condition.action.push({
+      $application: "set",
+      $data: `continue_on_fail=true`,
+    });
+    xml.document.section.context.extension[1].condition.action.push({
+      $application: "set",
+      $data: `hangup_after_bridge=true`,
+    });
+
     if (prefixo === 3022) {
       // xml.document.section.context.extension.condition.action.push({
       //   $application: "set",

@@ -96,10 +96,10 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
           $application: "bridge",
           $data: `{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/astpp/${itemPrefixo}$1`,
         });
-        xml.document.section.context.extension[1].condition.action.push({
-          $application: "sleep",
-          $data: `5000`,
-        });
+        // xml.document.section.context.extension[1].condition.action.push({
+        //   $application: "sleep",
+        //   $data: `5000`,
+        // });
       }
     }
   } else if (typeof prefixo === "string") {

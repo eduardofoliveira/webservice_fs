@@ -110,14 +110,14 @@ module.exports = {
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [3019],
+              prefixo: [3025, 3019],
               // prefixo,
             });
           } else {
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [3019, prefixo, 3027],
+              prefixo: [3019, prefixo, 3025, 3027],
               // prefixo,
             });
           }

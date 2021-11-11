@@ -15,6 +15,17 @@ let listaRamais = {};
 let listDomains = [];
 let didsBasix = [];
 
+const domainRepositoryMysql = new DomainRepositoryMysql();
+domainRepositoryMysql.getActiveDomains().then(domains => {
+  domains = domains.map((item) => item.domain);
+  listDomains = domains;
+})
+
+const addressRepository = new AddressRepository();
+addressRepository.getAllAddress().then(dids => {
+  didsBasix = dids.map((item) => item.VCH_ADDRESS);
+})
+
 module.exports = {
   async index(req, res) {
     const {
@@ -46,21 +57,12 @@ module.exports = {
     // Busca os dominios que estão habilitados
     //
     if (listDomains.length === 0) {
-      const domainRepositoryMysql = new DomainRepositoryMysql();
-      let domains = await domainRepositoryMysql.getActiveDomains();
-      domains = domains.map((item) => item.domain);
-
-      listDomains = domains;
     }
 
     //
     // Busca os DIDs que pertencem ao Basix
     //
     if (didsBasix.length === 0) {
-      const addressRepository = new AddressRepository();
-      const dids = await addressRepository.getAllAddress();
-
-      didsBasix = dids.map((item) => item.VCH_ADDRESS);
     }
 
     //
@@ -144,13 +146,13 @@ module.exports = {
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [3012, 3019, 3010],
+              prefixo: [3019, 3010],
             });
           } else {
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [prefixo, 3012, 3019, 3010],
+              prefixo: [prefixo, 3019, 3010],
             });
           }
         }

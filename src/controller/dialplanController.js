@@ -110,14 +110,14 @@ module.exports = {
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [prefixo, prefixo, prefixo, prefixo, prefixo, 3025, 3019],
+              prefixo: [prefixo, 3019, 3027, 3027, 3027, 3027, 3027, 3027, 3027, 3027, 3027, 3027],
               // prefixo,
             });
           } else {
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [prefixo, prefixo, prefixo, prefixo, prefixo, 3019, prefixo, 3025, 3027],
+              prefixo: [prefixo, 3019, 3027, 3027, 3027, 3027, 3027, 3027, 3027, 3027, 3027, 3027],
               // prefixo,
             });
           }
@@ -127,13 +127,13 @@ module.exports = {
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [3019, 3012, prefixo, prefixo, prefixo, prefixo, prefixo],
+              prefixo: [prefixo, 3019, 3027, 3027, 3027, 3027, 3027, 3027, 3027, 3027, 3027, 3027],
             });
           } else {
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [prefixo, 3019, 3012, prefixo, prefixo, prefixo, prefixo, prefixo],
+              prefixo: [prefixo, 3019, 3027, 3027, 3027, 3027, 3027, 3027, 3027, 3027, 3027, 3027],
               // prefixo,
             });
           }

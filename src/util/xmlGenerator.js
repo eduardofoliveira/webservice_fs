@@ -91,6 +91,23 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
         //   $application: "set",
         //   $data: `bypass_media=false`,
         // });
+      } else if (itemPrefixo === 3029){
+        xml.document.section.context.extension[1].condition.action.push({
+          $application: "set",
+          $data: "effective_caller_id_number=+${sip_from_user}",
+        });
+        xml.document.section.context.extension[1].condition.action.push({
+          $application: "bridge",
+          $data: `{absolute_codec_string=^^:PCMU:PCMA}sofia/gateway/astpp/${itemPrefixo}$1`,
+        });
+        xml.document.section.context.extension[1].condition.action.push({
+          $application: "set",
+          $data: "effective_caller_id_number=${sip_from_user:2}",
+        });
+        xml.document.section.context.extension[1].condition.action.push({
+          $application: "sleep",
+          $data: `1000`,
+        });
       } else {
         xml.document.section.context.extension[1].condition.action.push({
           $application: "bridge",

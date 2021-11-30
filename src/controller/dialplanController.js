@@ -107,108 +107,105 @@ module.exports = {
         return res.send(xml);
       } else {
         if (type.type === "movel") {
-          if (prefixo === 3027) {
-            // DID da GtGroup
+          if (prefixo === 3027) { // DID da GtGroup
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [prefixo, 3029],
+              prefixo: [3025, prefixo, 3042, 3029],
             });
-          }else if (prefixo === 3019){
-            // DID Tellegroup
+          }else if (prefixo === 3019){ // DID Tellegroup
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [prefixo, 3029],
+              prefixo: [3025, prefixo, 3042, 3029],
             });
           } else {
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [prefixo],
+              prefixo: [3025, prefixo, 3042, 3029],
             });
           }
         }
         if (type.type === "fixo") {
-          if (prefixo === 3027) {
+          if (prefixo === 3027) { // DID da GtGroup
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [prefixo, 3019, 3027, 3029, 3027, 3027, 3027, 3027, 3027, 3027, 3027, 3027, 3027],
+              prefixo: [prefixo, 3042, 3029],
             });
-          }else if (prefixo === 3019){
-            // DID Tellegroup
+          }else if (prefixo === 3019){ // DID Tellegroup
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [prefixo, 3027, 3029],
+              prefixo: [prefixo, 3027, 3042, 3029],
             });
           } else {
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [prefixo, 3019, 3027, 3027, 3027, 3027, 3027, 3027, 3027, 3027, 3027, 3027],
+              prefixo: [prefixo, 3027, 3042, 3029],
             });
           }
         }
         // Comentario
         if (type.type === "4002" || type.type === "4003") {
-          if (prefixo === 3027) {
+          if (prefixo === 3027) { // DID da GtGroup
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [3019, 3010],
+              prefixo: [prefixo, 3042, 3010, 3019],
             });
           } else {
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [prefixo, 3019, 3010],
+              prefixo: [prefixo, 3042, 3010, 3019],
             });
           }
         }
         if (type.type === "0800") {
-          if (prefixo === 3027) {
+          if (prefixo === 3027) { // DID da GtGroup
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [3012, 3019, 3010],
+              prefixo: [prefixo, 3042, 3010, 3019],
             });
           } else {
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [prefixo, 3012, 3019, 3010],
+              prefixo: [prefixo, 3042, 3010, 3019],
             });
           }
         }
         if (type.type === "0300") {
-          if (prefixo === 3027) {
+          if (prefixo === 3027) { // DID da GtGroup
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [3012, 3019, 3010],
+              prefixo: [prefixo, 3042, 3010, 3019],
             });
           } else {
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [prefixo, 3012, 3019, 3010],
+              prefixo: [prefixo, 3042, 3010, 3019],
             });
           }
         }
         if (type.type === "não determinado") {
-          if (prefixo === 3027) {
+          if (prefixo === 3027) { // DID da GtGroup
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [3012, 3019, 3010],
+              prefixo: [prefixo, 3010],
             });
           } else {
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [prefixo, 3012, 3019, 3010],
+              prefixo: [prefixo, 3010],
             });
           }
         }

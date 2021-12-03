@@ -138,13 +138,13 @@ module.exports = {
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [prefixo, 3027, 3042, 3029],
+              prefixo: [prefixo, 3042, 3029],
             });
           } else {
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [prefixo, 3027, 3042, 3029],
+              prefixo: [prefixo, 3042, 3029],
             });
           }
         }

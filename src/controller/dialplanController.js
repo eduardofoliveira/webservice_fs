@@ -111,19 +111,19 @@ module.exports = {
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [3025, prefixo, 3042, 3029],
+              prefixo: [prefixo, 3042, 3029],
             });
           }else if (prefixo === 3019){ // DID Tellegroup
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [3025, prefixo, 3042, 3029],
+              prefixo: [prefixo, 3042, 3029],
             });
           } else {
             xml = generateOutboundRoute({
               from,
               to,
-              prefixo: [3025, prefixo, 3042, 3029],
+              prefixo: [prefixo, 3042, 3029],
             });
           }
         }

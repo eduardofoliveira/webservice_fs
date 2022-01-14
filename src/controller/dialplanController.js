@@ -107,7 +107,13 @@ module.exports = {
         return res.send(xml);
       } else {
         if (type.type === "movel") {
-          if (prefixo === 3027) { // DID da GtGroup
+          if(prefixo === 3012){ // DID da Datora
+            xml = generateOutboundRoute({
+              from,
+              to,
+              prefixo: [3042, 3029],
+            });
+          }else if (prefixo === 3027) { // DID da GtGroup
             xml = generateOutboundRoute({
               from,
               to,
@@ -128,7 +134,13 @@ module.exports = {
           }
         }
         if (type.type === "fixo") {
-          if (prefixo === 3027) { // DID da GtGroup
+          if (prefixo === 3012) { // DID da Datora
+            xml = generateOutboundRoute({
+              from,
+              to,
+              prefixo: [3042, 3029],
+            });
+          }else if (prefixo === 3027) { // DID da GtGroup
             xml = generateOutboundRoute({
               from,
               to,

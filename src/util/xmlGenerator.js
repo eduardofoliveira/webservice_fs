@@ -60,10 +60,10 @@ const generateOutboundRoute = ({ from, to, prefixo }) => {
     `<action application="set" data="inherit_codec=true"/>
     <action application="set" data="bridge_generate_comfort_noise=true"/>
     <action application="export" data="bridge_generate_comfort_noise=true"/>
-    <action application="set" data="ringback=` +
+    <!-- <action application="set" data="ringback=` +
     "${us-ring}" +
-    `"/>
-                  <action application="set" data="instant_ringback=true"/>
+    `"/> -->
+                  <!-- <action application="set" data="instant_ringback=true"/> -->
                   
                 </condition>
               </extension>
